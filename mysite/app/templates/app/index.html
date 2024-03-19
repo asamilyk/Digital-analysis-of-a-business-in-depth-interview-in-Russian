@@ -10,6 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+{% if error_message %}
+    <div class="alert alert-danger" role="alert">
+        {{ error_message }}
+    </div>
+{% endif %}
+
 <nav>
     <div class="navbar">
         <div class="logo"><a href="{% url 'index' %}">Цифровой анализ</a></div>
@@ -46,14 +52,13 @@
         <h2 class="text">Цифровой психолингвистический</h2>
         <h3 class="text"><span>АНАЛИЗ ИНТЕРВЬЮ</span></h3>
         <p>Файл необходимо загрузить в формате .txt. В файле должна содержаться
-            только та транскрибированная речь, анализ которой необходимо осуществить.</p>
+            только та транскрибированная речь на русском языке, анализ которой необходимо осуществить.</p>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <label class="input-file">
                 <input type="file" id="upload-btn" name="file_upload" multiple accept=".txt" onchange="readFile(event)">
                 <span id="choose-button"> Выберите файл <i class="fas fa-file-upload" aria-hidden="true"></i></span>
                 <label id="file-chosen">Файл не выбран</label>
-
             </label>
             <button type="submit" id="submit-btn" class="submit-btn" style="display: none">Сделать анализ</button>
         </form>

@@ -1,14 +1,18 @@
 import re
 import nltk
-from nltk.corpus import stopwords
 from collections import Counter
 import pymorphy2
-# import writer
-
+#import writer as _writer
 from app.analysis import writer as _writer
 
-# nltk.download('punkt')
-# nltk.download('averaged_perceptron_tagger_ru')
+try:
+    nltk.data.find('tokenizers/punkt')
+    nltk.data.find('taggers/averaged_perceptron_tagger_ru')
+except LookupError:
+    print("hh")
+    nltk.download('punkt')
+    nltk.download('averaged_perceptron_tagger_ru')
+
 morph = pymorphy2.MorphAnalyzer()
 
 
@@ -66,7 +70,7 @@ class Text:
             count = self.pos_counts[tags[key]]
             part_of_speech_stat_num.append(count if count <= 10 ** 10 else ">10^10")
             part_of_speech_stat_per.append(str(round(float(count) * 100 / total, 1)) + "%")
-        self.writer.create_pdf(['Кол-во'] + part_of_speech_stat_num, ['% от общ.'] + part_of_speech_stat_per, total)
+        self.writer.create_pdf(['Кол-во'] + part_of_speech_stat_num, ['% от общ.'] + part_of_speech_stat_per, tot)
 
     def get_pos_tags(self):
         self.tokens = nltk.word_tokenize(" ".join(self.tokenized_text), language='russian')
@@ -83,23 +87,37 @@ class Text:
         return parsed_word.tag.POS == 'VERB' and 'sing' in parsed_word.tag and '1per' in parsed_word.tag
 
     def as_av_reference(self):
-        self.count_negation_words()
-        self.writer.as_av_reference()
+        neg_words = self.count_negation_words()
+        self.writer.as_av_reference(neg_words)
 
     def count_negation_words(self):
         negation_words = ['не', 'никогда', 'никак', 'нет', 'ничего', 'никакой', 'никакая', 'никакие', 'никаких',
-                          'никуда', 'негде', 'ниоткуда', 'никудышный', 'никаков', 'некогда', 'николи', 'некуда',
-                          'никоготь']
+                          'никуда', 'негде', 'ниоткуда', 'никаков', 'некогда', 'некуда']
         pattern = r'\b(?:{})\b'.format('|'.join(negation_words))
         matches = re.findall(pattern, " ".join(self.tokenized_text))
         return len(matches)
 
     def ac_re_reference(self):
-        # подсчет мин макс и ср длины
-        self.writer.ac_re_reference()
-        return
+        if len(self.tokenized_text) == 0:
+            min_len = 0
+            max_len = 0
+            avr_len = 0
+        else:
+            sorted_words = sorted(self.tokenized_text, key=lambda x: len(x))
+            min_len = len(sorted_words[0])
+            max_len = len(sorted_words[len(sorted_words)-1])
+            avr_len = sum([len(word) for word in self.tokenized_text]) / len(self.tokenized_text)
+        self.writer.ac_re_reference(min_len, max_len, avr_len)
 
     def re_pr_reference(self):
-        # подсчет кол-ва глаголов в совершен и несовершен виде
-        self.writer.re_pr_reference()
-        return
+        perf_verbs = 0
+        imp_verbs = 0
+        for token in self.tokenized_text:
+            parsed_word = morph.parse(token)[0]
+            if 'VERB' in parsed_word.tag:
+                if 'perf' in parsed_word.tag:
+                    perf_verbs += 1
+                elif 'impf' in parsed_word.tag:
+                    imp_verbs += 1
+
+        self.writer.re_pr_reference(perf_verbs, imp_verbs)
