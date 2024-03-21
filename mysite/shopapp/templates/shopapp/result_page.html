@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>{% block title %}Главная страница{% endblock %}</title>
+
+</head>
+<body id="bg" style="background-image: url('{% static "shopapp/images/wallpaper.jpg"%}');">
+    <header>
+        <h1>Цифровой анализ интервью онлайн</h1>
+    </header>
+
+    <div class="content">
+        {% block content %}
+        <p>Файл успешно загружен</p>
+        <p>Загрузить новый файл</p>
+        <p>Прикрепите файл с интервью</p>
+    {% endblock %}
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="file_upload">
+        <button type="submit">Загрузить файл</button>
+</form>
+
+
+    <footer>
+        <p>Спасибо, что пришли на классный сайтик</p>
+    </footer>
+</body>
+</html>

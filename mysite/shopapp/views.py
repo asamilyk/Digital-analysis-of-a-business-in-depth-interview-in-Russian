@@ -1,11 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-def index(request):
-    if request.method == 'POST' and request.FILES['file']:
-        uploaded_file = request.FILES['file']
-        with open('path/to/save/' + uploaded_file.name, 'wb+') as destination:
-            for chunk in uploaded_file.chunks():
-                destination.write(chunk)
-        return HttpResponse('Файл успешно загружен.')
-    return render(request, 'shopapp/index.html')
+def upload_file(request):
+    if request.method == 'POST':
+        if 'file_upload' not in request.FILES:
+            return render(request, 'shopapp/first_page.html')
+        uploaded_file = request.FILES['file_upload']
+        # Здесь вы можете выполнить дополнительные действия с загруженным файлом, например, сохранить его на сервере
+        return render(request, 'shopapp/result_page.html', {'uploaded_file': uploaded_file})
+    return render(request, 'shopapp/first_page.html')
+
