@@ -47,7 +47,19 @@
       }
     });
   }
-$('.input-file input[type=file]').on('change', function(){
-	let file = this.files[0];
-	$(this).next().html(file.name);
-});
+const actualBtn = document.getElementById('upload-btn');
+const fileChosen = document.getElementById('file-chosen');
+actualBtn.addEventListener('change', function(){
+  fileChosen.textContent = this.files[0].name
+  submitButton = document.getElementById('submit-btn');
+  submitButton.style.display='';
+
+})
+
+submitButton.style.display=none;
+
+document.getElementById('submit-btn').onclick = submit;
+
+function submit() {
+
+}

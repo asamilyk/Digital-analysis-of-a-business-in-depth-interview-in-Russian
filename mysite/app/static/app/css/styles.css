@@ -220,6 +220,15 @@ nav .navbar a{
 .input-file span:hover{
   background: var(--switchers-main);
 }
+.input-file span i{
+  font-size: 20px;
+  margin-left: 7px
+}
+#file-chosen{
+  margin-left: 0.3rem;
+  font-family: sans-serif;
+}
+
 .input-file input[type=file] {
 	position: absolute;
 	z-index: -1;
@@ -230,17 +239,33 @@ nav .navbar a{
 }
 
 /* Focus */
-.input-file input[type=file]:focus + span {
+.input-file input[type=file]:focus {
 	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }
 
 .input-file:active span {
-	background-color: #2E703A;
+	background-color: var(--switchers-main);
 }
 
 /* Disabled */
 .input-file input[type=file]:disabled + span {
 	background-color: #eee;
+}
+.home-content button{
+  color: #fff;
+  font-size: 20px;
+  padding: 12px 24px;
+  margin-top: 10px;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  background: var(--nav-main);
+}
+.home-content button:hover{
+  background: var(--switchers-main);
 }
 @media (max-width: 1050px) {
   .home-content p{

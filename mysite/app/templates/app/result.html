@@ -43,22 +43,9 @@
 
 <section class="home-content">
     <div class="texts">
-        <h2 class="text">Цифровой психолингвистический</h2>
-        <h3 class="text"><span>АНАЛИЗ ИНТЕРВЬЮ</span></h3>
-        <p>Файл необходимо загрузить в формате .txt. В файле должна содержаться
-            только та транскрибированная речь, которую необходимо подвергнуть анализу.</p>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <label class="input-file">
-                <input type="file" id="upload-btn" name="file_upload" multiple accept=".txt">
-                <span> Выберите файл <i class="fas fa-file-upload" aria-hidden="true"></i></span>
-                <label id="file-chosen">Файл не выбран</label>
-            </label>
-            <div class="button" id="submit-btn" style="display: none">
-                <button type="submit"> Начать анализ</button>
-            </div>
-        </form>
-    </div>
+        <h2 class="text">Результаты</h2>
+        <h3 class="text"><span>АНАЛИЗА ИНТЕРВЬЮ</span></h3>
+        <p>Результаты содержаться в приложенном файле</p>
 
 
 </section>
