@@ -209,7 +209,11 @@ nav .navbar a{
   color: #fff;
   font-size: 20px;
   padding: 12px 24px;
+  position: relative;
+  display: inline-block;
+  outline: none;
   border-radius: 6px;
+  cursor: pointer;
   text-decoration: none;
   background: var(--nav-main);
 }
