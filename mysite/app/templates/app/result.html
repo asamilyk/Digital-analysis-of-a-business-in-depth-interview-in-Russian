@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <!-- Coding By Samilyk Anastasia - -->
 <html lang="ru" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <title> Main Page </title>
-    <link rel="stylesheet" href="static/app/css/styles.css">
+    <title> Result page </title>
+    <link rel="stylesheet" href="{% static 'app/css/result-styles.css' %}">
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +13,11 @@
 <body>
 <nav>
     <div class="navbar">
-        <div class="logo"><a href="#">Digital analysis</a></div>
+        <div class="logo"><a href="{% url 'index' %}">Digital analysis</a></div>
         <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Analysis methods</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="">Analysis methods</a></li>
+            <li><a href="">Contact</a></li>
         </ul>
         <div class="appearance">
             <div class="light-dark">
@@ -46,10 +47,11 @@
         <h2 class="text">Результаты</h2>
         <h3 class="text"><span>АНАЛИЗА ИНТЕРВЬЮ</span></h3>
         <p>Результаты содержаться в приложенном файле</p>
+        </div>
 
 
 </section>
 
-<script src="static/app/scripts/script.js"></script>
+<script src="{% static 'app/scripts/script.js' %}"></script>
 </body>
 </html>
