@@ -57,9 +57,3 @@ actualBtn.addEventListener('change', function(){
 })
 
 submitButton.style.display=none;
-
-document.getElementById('submit-btn').onclick = submit;
-
-function submit() {
-
-}
