@@ -11,8 +11,9 @@ from collections import Counter
 class Text:
     text = ""
     tokenized_text = []
-    part_of_speech_stat_num = {}
-    part_of_speech_stat_per = {}
+    part_of_speech_stat_num = []
+    part_of_speech_stat_per = []
+    total = 0
 
     def __init__(self, text):
         self.text = text
@@ -27,7 +28,6 @@ class Text:
     def generalStatistics(self):
         pos_tags = self.get_pos_tags()
         pos_counts = Counter(tag for word, tag in pos_tags)
-        print("Количество частей речи в тексте:")
         tags = {'Наречие': "ADV",
                 'Предлог': "PR",
                 'Прилагательное в женском роде': "A=f",
@@ -35,8 +35,8 @@ class Text:
                 'Прилагательное в среднем роде': "A=n",
                 'Прилагательное во множественном числе роде': "A=pl",
                 'Личные местоимения': "S-PRO",
-                'Глаголы': "V",
-                'Союзы': "CONJ",
+                'Глагол': "V",
+                'Союз': "CONJ",
                 'Притяжательное прилательное м.р.': "A-PRO=m",
                 'Притяжательное прилательное ж.р.': "A-PRO=f",
                 'Притяжательное прилательное ср.р.': "A-PRO=n",
@@ -45,16 +45,20 @@ class Text:
                 'Числительное м.р.': "NUM=m",
                 'Числительное и.п.': "NUM=nom",
                 'Прилагательное': "A",
-                'Вводное': "PARENTH"}
-        total = sum(pos_counts.values())
-        for key in tags.keys():
+                'Вводное': "PARENTH",
+                'Существительное': "S"}
+        main_tags = ['Наречие',
+                     'Предлог',
+                     'Личные местоимения',
+                     'Глагол',
+                     'Союз',
+                     'Прилагательное',
+                     'Существительное']
+        self.total = sum(pos_counts.values())
+        for key in main_tags:
             count = pos_counts[tags[key]]
-            self.part_of_speech_stat_num[key] = count
-            self.part_of_speech_stat_per[key] = float(count) * 100 / total
-        self.part_of_speech_stat_num = dict(
-            sorted(self.part_of_speech_stat_num.items(), key=lambda item: item[1], reverse=True))
-        self.part_of_speech_stat_per = dict(
-            sorted(self.part_of_speech_stat_per.items(), key=lambda item: item[1], reverse=True))
+            self.part_of_speech_stat_num.append(count if count < 10**10 else ">10^10")
+            self.part_of_speech_stat_per.append(str(round(float(count) * 100 / self.total, 1)) +"%")
 
     def get_pos_tags(self):
         tokens = nltk.word_tokenize(" ".join(self.tokenized_text), language='russian')
