@@ -51,13 +51,14 @@
         <form action="result/" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <label class="input-file">
-                <input type="file" id="upload-btn" name="file_upload" multiple accept=".txt">
+                <input type="file" id="upload-btn" name="file_upload" multiple accept=".txt" onchange="readFile(event)">
                 <span> Выберите файл <i class="fas fa-file-upload" aria-hidden="true"></i></span>
                 <label id="file-chosen">Файл не выбран</label>
-            </label>
+
                 <div class="button" id="submit-btn" style="display: none">
                     <button type="submit"> Начать анализ</button>
                 </div>
+            </label>
         </form>
     </div>
 

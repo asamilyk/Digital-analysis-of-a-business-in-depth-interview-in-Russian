@@ -17,6 +17,7 @@ def tokenize(text):
     t = re.sub(r'[^\w\s]', '', text)
     # conversion to lowercase
     t = t.lower().split()
+
     tokenized_text = t
 
 

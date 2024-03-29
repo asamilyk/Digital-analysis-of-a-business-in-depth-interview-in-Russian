@@ -6,7 +6,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 pdfmetrics.registerFont(TTFont('Times-Roman', 'arial.ttf'))
 w, h = A4
-c = Canvas("canvas.pdf", pagesize=A4)
+c = Canvas("../../../canvas.pdf", pagesize=A4)
 
 
 def createPDF(b, d, total):
@@ -33,6 +33,7 @@ def createPDF(b, d, total):
     c.line(0, h - 200, w, h - 200)
     c.showPage()
     c.save()
+    return c
 
 
 def createGrid(a, b, d):

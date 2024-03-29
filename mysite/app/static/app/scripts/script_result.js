@@ -47,24 +47,14 @@
       }
     });
   }
-const actualBtn = document.getElementById('upload-btn');
-const fileChosen = document.getElementById('file-chosen');
-actualBtn.addEventListener('change', function(){
-  fileChosen.textContent = this.files[0].name
-  submitButton = document.getElementById('submit-btn');
-  submitButton.style.display='';
-})
-
-function readFile(event) {
-        const input = event.target;
-        if ('files' in input && input.files.length > 0) {
-            const file = input.files[0];
-            const reader = new FileReader();
-            reader.onload = function() {
-                const fileContent = reader.result;
-                // Сохраняем содержимое файла в локальном хранилище
-                localStorage.setItem('fileContent', fileContent);
-            };
-            reader.readAsText(file);
+window.onload = function() {
+        // Получаем содержимое файла из локального хранилища
+        const fileContent = localStorage.getItem('fileContent');
+        if (fileContent) {
+            document.getElementById('file-content').innerText = fileContent;
+            // Очищаем содержимое файла из локального хранилища после использования
+            localStorage.removeItem('fileContent');
+        } else {
+            document.getElementById('fileContent').innerText = 'Файл не был передан.';
         }
     }
