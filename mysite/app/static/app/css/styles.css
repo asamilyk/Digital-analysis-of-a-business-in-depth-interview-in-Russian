@@ -211,8 +211,8 @@ nav .navbar a{
   position: relative;
   display: inline-block;
   outline: none;
-  border-radius: 6px;
   cursor: pointer;
+  border-radius: 6px;
   text-decoration: none;
   background: var(--nav-main);
 }
@@ -250,6 +250,24 @@ nav .navbar a{
 .input-file input[type=file]:disabled + span {
 	background-color: #eee;
 }
+.submit-btn {
+  color: #fff;
+  font-size: 20px;
+  padding: 12px 24px;
+  position: relative;
+  outline: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  background: var(--nav-main);
+  border: none;
+}
+
+.submit-btn:hover {
+    background
+    : var(--switchers-main);
+}
+
 @media (max-width: 1050px) {
   .home-content p{
     width: 70%;
