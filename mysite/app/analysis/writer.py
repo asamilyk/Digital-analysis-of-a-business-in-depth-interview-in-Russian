@@ -6,10 +6,10 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 pdfmetrics.registerFont(TTFont('Times-Roman', 'arial.ttf'))
 w, h = A4
-c = Canvas("../../../canvas.pdf", pagesize=A4)
 
 
-def createPDF(b, d, total):
+
+def createPDF(c, b, d, total):
     text = c.beginText(w / 2 - 140, h - 40)
     text.setFont("Times-Roman", 20)
     text.textLine("Результаты анализа интервью")
@@ -29,14 +29,13 @@ def createPDF(b, d, total):
     c.drawText(text)
     a = ["Часть речи", 'Наречие', 'Предлог',
          'Лич. мест.', 'Глагол', 'Союз', 'Прил.', 'Сущ.']
-    createGrid(a, b, d)
+    createGrid(a, b, d, c)
     c.line(0, h - 200, w, h - 200)
     c.showPage()
-    c.save()
     return c
 
 
-def createGrid(a, b, d):
+def createGrid(a, b, d, c):
     # Margin.
     x_offset = 70
     y_offset = 50

@@ -55,16 +55,3 @@ actualBtn.addEventListener('change', function(){
   submitButton.style.display='';
 })
 
-function readFile(event) {
-        const input = event.target;
-        if ('files' in input && input.files.length > 0) {
-            const file = input.files[0];
-            const reader = new FileReader();
-            reader.onload = function() {
-                const fileContent = reader.result;
-                // Сохраняем содержимое файла в локальном хранилище
-                localStorage.setItem('fileContent', fileContent);
-            };
-            reader.readAsText(file);
-        }
-    }

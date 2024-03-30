@@ -48,7 +48,7 @@
         <h3 class="text"><span>АНАЛИЗ ИНТЕРВЬЮ</span></h3>
         <p>Файл необходимо загрузить в формате .txt. В файле должна содержаться
             только та транскрибированная речь, которую необходимо подвергнуть анализу.</p>
-        <form action="result/" method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <label class="input-file">
                 <input type="file" id="upload-btn" name="file_upload" multiple accept=".txt" onchange="readFile(event)">

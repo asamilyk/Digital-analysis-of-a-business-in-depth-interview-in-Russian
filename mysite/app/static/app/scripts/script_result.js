@@ -47,14 +47,3 @@
       }
     });
   }
-window.onload = function() {
-        // Получаем содержимое файла из локального хранилища
-        const fileContent = localStorage.getItem('fileContent');
-        if (fileContent) {
-            document.getElementById('file-content').innerText = fileContent;
-            // Очищаем содержимое файла из локального хранилища после использования
-            localStorage.removeItem('fileContent');
-        } else {
-            document.getElementById('fileContent').innerText = 'Файл не был передан.';
-        }
-    }
