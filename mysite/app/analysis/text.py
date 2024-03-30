@@ -6,10 +6,7 @@ from collections import Counter
 # nltk.download('punkt')
 # nltk.download('averaged_perceptron_tagger_ru')
 
-tokenized_text = []
-part_of_speech_stat_num = []
-part_of_speech_stat_per = []
-total = 0
+
 
 
 def tokenize(text):
@@ -17,11 +14,14 @@ def tokenize(text):
     t = re.sub(r'[^\w\s]', '', text)
     # conversion to lowercase
     t = t.lower().split()
-    tokenized_text = t
+
+    return t
 
 
-def general_statistics():
-    pos_tags = get_pos_tags()
+def general_statistics(tokenized_text):
+    part_of_speech_stat_num = []
+    part_of_speech_stat_per = []
+    pos_tags = get_pos_tags(tokenized_text)
     pos_counts = Counter(tag for word, tag in pos_tags)
     tags = {'Наречие': "ADV",
             'Предлог': "PR",
@@ -54,9 +54,9 @@ def general_statistics():
         count = pos_counts[tags[key]]
         part_of_speech_stat_num.append(count if count < 10 ** 10 else ">10^10")
         part_of_speech_stat_per.append(str(round(float(count) * 100 / total, 1)) + "%")
+    return part_of_speech_stat_num, part_of_speech_stat_per, total
 
-
-def get_pos_tags():
+def get_pos_tags(tokenized_text):
     tokens = nltk.word_tokenize(" ".join(tokenized_text), language='russian')
     pos_tags = nltk.pos_tag(tokens, lang='rus')
     return pos_tags

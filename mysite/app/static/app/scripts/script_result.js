@@ -47,11 +47,3 @@
       }
     });
   }
-const actualBtn = document.getElementById('upload-btn');
-const fileChosen = document.getElementById('file-chosen');
-actualBtn.addEventListener('change', function(){
-  fileChosen.textContent = this.files[0].name
-  submitButton = document.getElementById('submit-btn');
-  submitButton.style.display='';
-})
-
