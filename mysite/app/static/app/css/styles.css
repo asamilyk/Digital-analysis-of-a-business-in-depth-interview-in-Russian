@@ -250,7 +250,7 @@ nav .navbar a{
 .input-file input[type=file]:disabled + span {
 	background-color: #eee;
 }
-.submit-btn {
+.home-content .submit-btn {
   color: #fff;
   font-size: 20px;
   padding: 12px 24px;
@@ -263,7 +263,7 @@ nav .navbar a{
   border: none;
 }
 
-.submit-btn:hover {
+.home-content .submit-btn:hover {
     background
     : var(--switchers-main);
 }

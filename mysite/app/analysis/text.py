@@ -49,12 +49,13 @@ def general_statistics(tokenized_text):
                  'Союз',
                  'Прилагательное',
                  'Существительное']
-    total = sum(pos_counts.values())
+    tot = sum(pos_counts.values())
+    total = tot if tot > 0 else 1
     for key in main_tags:
         count = pos_counts[tags[key]]
         part_of_speech_stat_num.append(count if count < 10 ** 10 else ">10^10")
         part_of_speech_stat_per.append(str(round(float(count) * 100 / total, 1)) + "%")
-    return part_of_speech_stat_num, part_of_speech_stat_per, total
+    return part_of_speech_stat_num, part_of_speech_stat_per, tot
 
 def get_pos_tags(tokenized_text):
     tokens = nltk.word_tokenize(" ".join(tokenized_text), language='russian')

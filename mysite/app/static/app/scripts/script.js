@@ -50,7 +50,11 @@
 const actualBtn = document.getElementById('upload-btn');
 const fileChosen = document.getElementById('file-chosen');
 actualBtn.addEventListener('change', function(){
-  fileChosen.textContent = this.files[0].name
+  fileName = this.files[0].name
+  if (fileName.length > 50){
+    fileName = fileName.substr(0, 47) + "...txt"
+   }
+  fileChosen.textContent = fileName
   submitButton = document.getElementById('submit-btn');
   submitButton.style.display='';
 })
