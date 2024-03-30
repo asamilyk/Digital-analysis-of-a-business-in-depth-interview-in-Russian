@@ -4,35 +4,35 @@ from reportlab.pdfbase import pdfmetrics
 import itertools
 from reportlab.pdfbase.ttfonts import TTFont
 
-pdfmetrics.registerFont(TTFont('Times-Roman', 'arial.ttf'))
+pdfmetrics.registerFont(TTFont('Arial', 'ArialRegular.ttf'))
+pdfmetrics.registerFont(TTFont('ArialBold', 'ArialBold.ttf'))
 w, h = A4
 
 
-
 def createPDF(c, b, d, total):
-    text = c.beginText(w / 2 - 140, h - 40)
-    text.setFont("Times-Roman", 20)
-    text.textLine("Результаты анализа интервью")
-    c.drawText(text)
-
-    c.setFont("Times-Roman", 12)
+    write_line(c, w / 2 - 140, h - 40, 20, "Результаты анализа интервью", 'Arial')
+    c.setFont("Arial", 12)
     c.line(0, h - 50, w, h - 50)
-
-    text = c.beginText(20, h - 70)
-    text.setFont("Times-Roman", 15)
-    text.textLine("Анализ частей речи")
-    c.drawText(text)
-
-    text = c.beginText(20, h - 90)
-    text.setFont("Times-Roman", 12)
-    text.textLine("Общее количество слов: " + str(total))
-    c.drawText(text)
+    write_line(c, w / 2 - 90, h - 70, 15, "Анализ частей речи", 'ArialBold')
+    write_line(c, 20, h - 90, 12, "Общее количество слов: " + str(total), 'Arial')
     a = ["Часть речи", 'Наречие', 'Предлог',
          'Лич. мест.', 'Глагол', 'Союз', 'Прил.', 'Сущ.']
     createGrid(a, b, d, c)
     c.line(0, h - 200, w, h - 200)
-    c.showPage()
+    write_line(c, w / 2 - 80, h - 220, 15, "Метапрограммы", 'ArialBold')
+    write_line(c, 20, h - 240, 12, "Внутренняя – внешняя референция", 'Arial')
+
+
+
     return c
+
+
+def write_line(c, x, y, size, phrase, font):
+    text = c.beginText(x, y)
+    text.setFont(font, size)
+    text.textLine(phrase)
+    c.drawText(text)
+
 
 
 def createGrid(a, b, d, c):
@@ -41,7 +41,7 @@ def createGrid(a, b, d, c):
     y_offset = 50
     # Space between rows.
     padding = 30
-    xlist = [20 + x*x_offset for x in range(9)]
+    xlist = [20 + x * x_offset for x in range(9)]
     ylist = [h - 50 - y_offset - i * padding for i in range(4)]
 
     for rows in grouper([a, b, d], 3):

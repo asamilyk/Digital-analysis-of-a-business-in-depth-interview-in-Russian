@@ -35,6 +35,7 @@
 
       let coloText = document.querySelector(".home-content span");
 
+
       if(target.classList.contains("fa-moon")){ //if icon name is moon
         target.classList.replace(iconName, "fa-sun") //replace it with the sun
         colorIcons.style.display = "none";
