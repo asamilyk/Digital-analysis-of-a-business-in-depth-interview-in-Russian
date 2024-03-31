@@ -20,6 +20,11 @@ def index(request):
 def result(request):
     return render(request, 'app/result.html')
 
+def contact(request):
+    return render(request, 'app/contact.html')
+
+def methods(request):
+    return render(request, 'app/methods.html')
 
 def download(request):
     pdf_file_path = os.path.join(settings.BASE_DIR, 'canvas.pdf')
