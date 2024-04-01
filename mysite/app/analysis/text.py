@@ -2,12 +2,24 @@ import re
 import nltk
 from nltk.corpus import stopwords
 from collections import Counter
+import pymorphy2
+import writer
 
+# from app.analysis import writer
 # nltk.download('punkt')
 # nltk.download('averaged_perceptron_tagger_ru')
+morph = pymorphy2.MorphAnalyzer()
+
+
 class Text:
     pos_counts = {}
     tokenized_text = []
+    pos_tags = {}
+    writer = writer.Writer
+    tokens = []
+
+    def __init__(self, writer):
+        self.writer = writer
 
     def tokenize(self, text):
         # replacing non-letters with nothing
@@ -16,12 +28,11 @@ class Text:
         t = t.lower().split()
         self.tokenized_text = t
 
-
     def general_statistics(self):
         part_of_speech_stat_num = []
         part_of_speech_stat_per = []
-        pos_tags = self.get_pos_tags()
-        self.pos_counts = Counter(tag for word, tag in pos_tags)
+        self.get_pos_tags()
+        self.pos_counts = Counter(tag for word, tag in self.pos_tags)
         tags = {'Наречие': "ADV",
                 'Предлог': "PR",
                 'Прилагательное в женском роде': "A=f",
@@ -54,18 +65,19 @@ class Text:
             count = self.pos_counts[tags[key]]
             part_of_speech_stat_num.append(count if count < 10 ** 10 else ">10^10")
             part_of_speech_stat_per.append(str(round(float(count) * 100 / total, 1)) + "%")
-        return part_of_speech_stat_num, part_of_speech_stat_per, tot
-
+        self.writer.create_pdf(['Кол-во'] + part_of_speech_stat_num, ['% от общ.'] + part_of_speech_stat_per, total)
 
     def get_pos_tags(self):
-        tokens = nltk.word_tokenize(" ".join(self.tokenized_text), language='russian')
-        pos_tags = nltk.pos_tag(tokens, lang='rus')
-        return pos_tags
-
+        self.tokens = nltk.word_tokenize(" ".join(self.tokenized_text), language='russian')
+        self.pos_tags = nltk.pos_tag(self.tokens, lang='rus')
 
     def in_ex_reference(self):
         c = Counter(self.tokenized_text)
         pronouns = sum(c[x] for x in ("я", "меня", "мне", "мной", "мой", "мне", "мое", "я сам"))
-        print(self.pos_counts["V=fin=1p=sg"])
+        singular_first_person_verbs = [word for word in self.tokens if self.is_singular_1st_person_verb(word)]
+        self.writer.in_ex_reference(pronouns, singular_first_person_verbs)
 
-
+    # Функция для определения является ли слово глаголом в первом лице единственного числа
+    def is_singular_1st_person_verb(self, word):
+        parsed_word = morph.parse(word)[0]
+        return parsed_word.tag.POS == 'VERB' and 'sing' in parsed_word.tag and '1per' in parsed_word.tag
