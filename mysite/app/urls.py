@@ -5,4 +5,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('result/', views.result, name='result'),
     path('download/', views.download, name='download'),
+    path('methods/', views.methods, name='methods'),
+    path('contact/', views.contact, name='contact'),
 ]
