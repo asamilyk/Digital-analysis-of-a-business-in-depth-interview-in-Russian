@@ -50,12 +50,14 @@
   }
 const actualBtn = document.getElementById('upload-btn');
 const fileChosen = document.getElementById('file-chosen');
+var spanElement = document.getElementById("choose-button");
 actualBtn.addEventListener('change', function(){
   fileName = this.files[0].name
   if (fileName.length > 50){
     fileName = fileName.substr(0, 47) + "...txt"
    }
   fileChosen.textContent = fileName
+  spanElement.textContent = "Выбрать другой файл";
   submitButton = document.getElementById('submit-btn');
   submitButton.style.display='';
 })

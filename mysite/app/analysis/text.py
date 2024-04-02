@@ -3,9 +3,10 @@ import nltk
 from nltk.corpus import stopwords
 from collections import Counter
 import pymorphy2
-import writer
+# import writer
 
-# from app.analysis import writer
+from app.analysis import writer
+
 # nltk.download('punkt')
 # nltk.download('averaged_perceptron_tagger_ru')
 morph = pymorphy2.MorphAnalyzer()
@@ -63,7 +64,7 @@ class Text:
         total = tot if tot > 0 else 1
         for key in main_tags:
             count = self.pos_counts[tags[key]]
-            part_of_speech_stat_num.append(count if count < 10 ** 10 else ">10^10")
+            part_of_speech_stat_num.append(count if count <= 10 ** 10 else ">10^10")
             part_of_speech_stat_per.append(str(round(float(count) * 100 / total, 1)) + "%")
         self.writer.create_pdf(['Кол-во'] + part_of_speech_stat_num, ['% от общ.'] + part_of_speech_stat_per, total)
 
@@ -77,7 +78,6 @@ class Text:
         singular_first_person_verbs = [word for word in self.tokens if self.is_singular_1st_person_verb(word)]
         self.writer.in_ex_reference(pronouns, singular_first_person_verbs)
 
-    # Функция для определения является ли слово глаголом в первом лице единственного числа
     def is_singular_1st_person_verb(self, word):
         parsed_word = morph.parse(word)[0]
         return parsed_word.tag.POS == 'VERB' and 'sing' in parsed_word.tag and '1per' in parsed_word.tag

@@ -39,7 +39,7 @@ nav .navbar a{
    display: flex;
  }
  .navbar .nav-links li{
-   margin: 0 8px;
+   margin: 0 10px;
    list-style: none;
    display: flex;
  }

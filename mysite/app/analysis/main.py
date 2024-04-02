@@ -1,12 +1,12 @@
 import os
-#import app.analysis.text as t
+import app.analysis.text as t
 import scipy.io
 from reportlab.pdfgen.canvas import Canvas
 
 from reportlab.lib.pagesizes import A4
-# from app.analysis import writer
-import text as t
-import writer
+from app.analysis import writer
+#import text as t
+#import writer
 
 
 def analyse(file):
