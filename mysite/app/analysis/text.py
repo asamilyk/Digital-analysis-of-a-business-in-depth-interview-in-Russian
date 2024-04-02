@@ -5,7 +5,7 @@ from collections import Counter
 import pymorphy2
 # import writer
 
-from app.analysis import writer
+from app.analysis import writer as _writer
 
 # nltk.download('punkt')
 # nltk.download('averaged_perceptron_tagger_ru')
@@ -16,7 +16,7 @@ class Text:
     pos_counts = {}
     tokenized_text = []
     pos_tags = {}
-    writer = writer.Writer
+    writer = _writer.Writer
     tokens = []
 
     def __init__(self, writer):
@@ -81,3 +81,25 @@ class Text:
     def is_singular_1st_person_verb(self, word):
         parsed_word = morph.parse(word)[0]
         return parsed_word.tag.POS == 'VERB' and 'sing' in parsed_word.tag and '1per' in parsed_word.tag
+
+    def as_av_reference(self):
+        self.count_negation_words()
+        self.writer.as_av_reference()
+
+    def count_negation_words(self):
+        negation_words = ['не', 'никогда', 'никак', 'нет', 'ничего', 'никакой', 'никакая', 'никакие', 'никаких',
+                          'никуда', 'негде', 'ниоткуда', 'никудышный', 'никаков', 'некогда', 'николи', 'некуда',
+                          'никоготь']
+        pattern = r'\b(?:{})\b'.format('|'.join(negation_words))
+        matches = re.findall(pattern, " ".join(self.tokenized_text))
+        return len(matches)
+
+    def ac_re_reference(self):
+        # подсчет мин макс и ср длины
+        self.writer.ac_re_reference()
+        return
+
+    def re_pr_reference(self):
+        # подсчет кол-ва глаголов в совершен и несовершен виде
+        self.writer.re_pr_reference()
+        return

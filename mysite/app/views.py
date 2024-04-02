@@ -1,6 +1,6 @@
 import os
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseServerError
 from django.shortcuts import render, redirect
 import sys
 from app.analysis import main
@@ -12,7 +12,10 @@ def index(request):
     if request.method == 'POST':
         if 'file_upload' not in request.FILES:
             return render(request, 'app/index.html')
-        uploaded_file = request.FILES['file_upload'].read().decode('utf-8')
+        try:
+            uploaded_file = request.FILES['file_upload'].read().decode('utf-8')
+        except UnicodeDecodeError:
+            return render(request, 'app/index.html')
         main.analyse(uploaded_file)
         return render(request, 'app/result.html')
     return render(request, 'app/index.html')

@@ -5,14 +5,12 @@
   icons.addEventListener("click" , ()=>{
     colorIcons.classList.toggle("open");
   })
-
   // getting all .btn elements
   let buttons = document.querySelectorAll(".btn");
 
   for (var button of buttons) {
     button.addEventListener("click", (e)=>{ //adding click event to each button
       let target = e.target;
-
       let open = document.querySelector(".open");
       if(open) open.classList.remove("open");
 
@@ -48,6 +46,8 @@
       }
     });
   }
+
+
 const actualBtn = document.getElementById('upload-btn');
 const fileChosen = document.getElementById('file-chosen');
 var spanElement = document.getElementById("choose-button");
