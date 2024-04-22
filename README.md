@@ -1,3 +1,3 @@
-«Веб-приложение “Цифровой анализ делового глубинного интервью на русском языке”» предназначено для осуществления цифрового анализа транскрибированных интервью с целью исследования психолингвистических особенностей речи человека. Программа представляет собой онлайн-сервис, позволяющий пользователю загружать файл с транскрибированным интервью и получать в ответ файл с результатами психолингвистического анализа.
+"Web-application "Digital analysis of business in-depth interview in Russian language"" is intended for realization of digital analysis of transcribed interviews for the purpose of research of psycholinguistic features of human speech. The program is an online service that allows the user to upload a file with a transcribed interview and receive in response a file with the results of psycholinguistic analysis.
 
-Основная цель разрабатываемого веб-приложения – облегчить и ускорить процесс психолингвистического анализа речи человека путем автоматизации анализа текстовых данных.
+The main purpose of the developed web application is to facilitate and speed up the process of psycholinguistic analysis of human speech by automating the analysis of textual data.
